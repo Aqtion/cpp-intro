@@ -129,7 +129,7 @@ class Polygon {
     }
 };
 class AUV {
-  public:
+  private:
     string name;
     Point position;
     double depth;
@@ -137,6 +137,7 @@ class AUV {
     double speed[3];
     double angular_speed;
 
+  public:
     AUV(string name, Point &position, double depth, double heading, double speed[3], double angular_speed) {
       this->name = name;
       this->position = position;
@@ -160,6 +161,18 @@ class AUV {
     }
     void apply_angular_acceleration(double angular_acceleration, double dt) {
       angular_speed+=(angular_acceleration*dt);
+    }
+    Point getPosition() {
+      return position;
+    }
+    double* getSpeed() {
+      return speed;
+    }
+    double getDepth() {
+      return depth;
+    }
+    double getAngularSpeed() {
+      return angular_speed;
     }
 };
 
@@ -237,19 +250,19 @@ int main()
   Point p(0,0);
   AUV auv("the_best_auv", p, -5, 0, arr, -0.3);
   auv.step(0.2);
-  cout << "x: " << auv.position.getX() << "\n";
-  cout << "y: " << auv.position.getY() << "\n";
-  cout << "z: " << auv.depth << "\n";
+  cout << "x: " << auv.getPosition().getX() << "\n";
+  cout << "y: " << auv.getPosition().getY() << "\n";
+  cout << "z: " << auv.getDepth() << "\n";
 
   double accel[3] = {2.5, 3.7, -1.3};
   auv.apply_acceleration(accel, 0.3);
-  cout << "foward speed: " << auv.speed[0] << "\n";
-  cout << "lat speed: " << auv.speed[1] << "\n";
-  cout << "vert speed : " << auv.speed[2] << "\n";
-  cout << "angular speed: " << auv.angular_speed << "\n";
+  cout << "foward speed: " << auv.getSpeed()[0] << "\n";
+  cout << "lat speed: " << auv.getSpeed()[1] << "\n";
+  cout << "vert speed : " << auv.getSpeed()[2] << "\n";
+  cout << "angular speed: " << auv.getAngularSpeed() << "\n";
 
   auv.apply_angular_acceleration(0.7, 0.4);
-  cout << "angular speed: " << auv.angular_speed << "\n";
+  cout << "angular speed: " << auv.getAngularSpeed() << "\n";
 
   return 0; 
 }
