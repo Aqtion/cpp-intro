@@ -227,6 +227,7 @@ int main()
 
   cout << triangle.area() << "\n";
   cout << polygon.area() << "\n";
+  cout << "perim: " << polygon.perimeter() << "\n";
   cout << l.distance_to_point(p3) << "\n";
   cout << l.length() << "\n";
   cout << p1.distance_to_point(p2) << "\n";
