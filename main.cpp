@@ -102,18 +102,16 @@ class AUV {
     Point position;
     double depth;
     double heading;
-    double speed[3];
+    array<double, 3> speed;
     double angular_speed;
 
   public:
-    AUV(string name, Point position, double depth, double heading, double speed[3], double angular_speed) {
+    AUV(string name, Point position, double depth, double heading, array<double, 3> speed, double angular_speed) {
       this->name = name;
       this->position = position;
       this->depth = depth;
       this->heading = heading;
-      this->speed[0] = speed[0];
-      this->speed[1] = speed[1];
-      this->speed[2] = speed[2];
+      this->speed = speed;
       this->angular_speed = angular_speed;
     }
     void step(double dt) {
@@ -133,7 +131,7 @@ class AUV {
     Point getPosition() {
       return position;
     }
-    double* getSpeed() {
+    array<double, 3> getSpeed() {
       return speed;
     }
     double getDepth() {
@@ -214,7 +212,7 @@ int main()
   cout << p1.distance_to_point(p2) << "\n";
   cout << p2.distance_to_origin() << "\n";
 
-  double arr[3] = {3,5,-2};
+  array<double,3> arr = {3,5,-2};
   Point p(0,0);
   AUV auv("the_best_auv", p, -5, 0, arr, -0.3);
   auv.step(0.2);
