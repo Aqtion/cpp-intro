@@ -5,7 +5,6 @@ class Point {
         double m_d_x;
         double m_d_y;
     public:
-        Point();
         Point(double x, double y);
         double x(){
             return m_d_x;

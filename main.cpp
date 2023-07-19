@@ -21,7 +21,7 @@ class Line {
     Point p2;
 
   public:
-    Line(Point p1, Point p2) {
+    Line(Point pa, Point pb) : p1(pa), p2(pb) {
       this->p1 = p1;
       this->p2 = p2;
     }
@@ -50,7 +50,7 @@ class Triangle {
     Point p3;
     
   public:
-    Triangle(Point p1, Point p2, Point p3) {
+    Triangle(Point pa, Point pb, Point pc) : p1(pa), p2(pb), p3(pc) {
       this->p1 = p1;
       this->p2 = p2;
       this->p3 = p3;
@@ -106,9 +106,9 @@ class AUV {
     double angular_speed;
 
   public:
-    AUV(string name, Point position, double depth, double heading, array<double, 3> speed, double angular_speed) {
+    AUV(string name, Point po, double depth, double heading, array<double, 3> speed, double angular_speed) : position(po) {
       this->name = name;
-      this->position = position;
+      this->position = po;
       this->depth = depth;
       this->heading = heading;
       this->speed = speed;
