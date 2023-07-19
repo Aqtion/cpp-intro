@@ -3,6 +3,9 @@
 #include <vector>
 #include <array>
 #include "Point.hpp"
+#include "Line.hpp"
+#include "Triangle.hpp"
+#include "Polygon.hpp"
 
 using namespace std;
 
@@ -15,87 +18,7 @@ class Circle {
     }
 };
 
-class Line {
-  private:
-    Point p1;
-    Point p2;
 
-  public:
-    Line(Point pa, Point pb) : p1(pa), p2(pb) {
-      this->p1 = p1;
-      this->p2 = p2;
-    }
-
-    double length() {
-      return p1.distance_to_point(p2);
-    }
-    double distance_to_point(Point p3) {
-        double slope = (p2.y() - p1.y()) / (p2.x() - p1.x());
-        double a = -slope;
-
-        double line_y_intercept = (p2.x() - slope * p2.x());
-        double c = -line_y_intercept;
-
-        double numerator = (a * p3.x() + p3.x() +c);
-        double denominator = sqrt(pow(a, 2) + 1);
-
-        return abs(numerator / denominator); 
-    }
-};
-
-class Triangle {
-  private:
-    Point p1;
-    Point p2;
-    Point p3;
-    
-  public:
-    Triangle(Point pa, Point pb, Point pc) : p1(pa), p2(pb), p3(pc) {
-      this->p1 = p1;
-      this->p2 = p2;
-      this->p3 = p3;
-    }
-    double area() {
-      Line side_a(p1, p2);
-      Line side_b(p2, p3);
-      Line side_c(p3, p1);
-
-      double length_side_a = side_a.length();
-      double length_side_b = side_b.length();
-      double length_side_c = side_c.length();
-
-      double semi_perimeter = (length_side_a + length_side_b + length_side_c) / 2;
-
-      double area = sqrt(semi_perimeter *  (semi_perimeter - length_side_a) * (semi_perimeter - length_side_b) * (semi_perimeter - length_side_c));
-
-      return area;
-    }
-};
-
-class Polygon {
-  private:
-    vector<Point> points;
-  public:
-    Polygon(vector<Point> points) {
-      this->points = points;
-    }
-    double area() {
-      double polygon_area = 0;
-      for(int i=1; i<points.size()-1; i++) {
-        Triangle t(points[0], points[i], points[i+1]);
-        polygon_area+=t.area();
-      }
-      return polygon_area;
-    }
-    double perimeter() {
-      double polygon_perimeter = 0;
-      for(int i=0; i<points.size()-1; i++) {
-        polygon_perimeter+=(this->points[i].distance_to_point(this->points[i+1]));
-      }
-      polygon_perimeter+=(this->points[this->points.size()-1].distance_to_point(this->points[0]));
-      return polygon_perimeter;
-    }
-};
 class AUV {
   private:
     string name;
