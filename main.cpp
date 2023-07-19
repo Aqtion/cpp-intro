@@ -2,6 +2,8 @@
 #include <cmath>
 #include <vector>
 #include <array>
+#include "Point.hpp"
+
 using namespace std;
 
 
@@ -13,47 +15,13 @@ class Circle {
     }
 };
 
-
-class Point {
-  private:
-    double x;
-    double y;
-
-  public:
-    Point(double x = 0, double y = 0){
-      this->x = x;
-      this->y = y;
-    }
-    double distance_to_origin() {
-      return sqrt((x * x) + (y * y));
-    }
-    double distance_to_point(Point p) {
-      return sqrt(pow((this->x - p.getX()),2) + pow((this->y - p.getY()),2));
-    }
-    double getX() {
-      return this->x;
-    }
-    double getY() {
-      return this->y;
-    }
-    void setX(double x) {
-      this->x = x;
-    }
-    void setY(double y) {
-      this->y = y;
-    }
-    // double distance_to_line(Line *l) {
-    //   return *l.distance_to_point(*this);
-    // }
-};
-
 class Line {
   private:
     Point p1;
     Point p2;
 
   public:
-    Line(Point &p1, Point &p2) {
+    Line(Point p1, Point p2) {
       this->p1 = p1;
       this->p2 = p2;
     }
@@ -62,13 +30,13 @@ class Line {
       return p1.distance_to_point(p2);
     }
     double distance_to_point(Point p3) {
-        double slope = (p2.getY() - p1.getY()) / (p2.getX() - p1.getX());
+        double slope = (p2.y() - p1.y()) / (p2.x() - p1.x());
         double a = -slope;
 
-        double line_y_intercept = (p2.getX() - slope * p2.getX());
+        double line_y_intercept = (p2.x() - slope * p2.x());
         double c = -line_y_intercept;
 
-        double numerator = (a * p3.getX() + p3.getX() +c);
+        double numerator = (a * p3.x() + p3.x() +c);
         double denominator = sqrt(pow(a, 2) + 1);
 
         return abs(numerator / denominator); 
@@ -82,7 +50,7 @@ class Triangle {
     Point p3;
     
   public:
-    Triangle(Point &p1, Point &p2, Point &p3) {
+    Triangle(Point p1, Point p2, Point p3) {
       this->p1 = p1;
       this->p2 = p2;
       this->p3 = p3;
@@ -138,7 +106,7 @@ class AUV {
     double angular_speed;
 
   public:
-    AUV(string name, Point &position, double depth, double heading, double speed[3], double angular_speed) {
+    AUV(string name, Point position, double depth, double heading, double speed[3], double angular_speed) {
       this->name = name;
       this->position = position;
       this->depth = depth;
@@ -150,8 +118,8 @@ class AUV {
     }
     void step(double dt) {
       heading+=(angular_speed*dt);
-      position.setX(position.getX() + (speed[0]*dt));
-      position.setY(position.getY() + (speed[1]*dt));
+      position.setX(position.x() + (speed[0]*dt));
+      position.setY(position.y() + (speed[1]*dt));
       depth+=(speed[2]*dt);
     }
     void apply_acceleration(double acceleration[3], double dt) {
@@ -250,8 +218,8 @@ int main()
   Point p(0,0);
   AUV auv("the_best_auv", p, -5, 0, arr, -0.3);
   auv.step(0.2);
-  cout << "x: " << auv.getPosition().getX() << "\n";
-  cout << "y: " << auv.getPosition().getY() << "\n";
+  cout << "x: " << auv.getPosition().x() << "\n";
+  cout << "y: " << auv.getPosition().y() << "\n";
   cout << "z: " << auv.getDepth() << "\n";
 
   double accel[3] = {2.5, 3.7, -1.3};

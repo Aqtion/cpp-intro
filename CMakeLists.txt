@@ -6,4 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 
-add_executable(MyFirstExecutable main.cpp)
+add_executable(MyFirstExecutable 
+main.cpp
+Point.cpp
+)
