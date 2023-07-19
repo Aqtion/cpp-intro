@@ -13,10 +13,10 @@ class Point {
         double y(){
             return m_d_y;
         }
-        double setX(double x) {
+        void setX(double x) {
             m_d_x = x;
         }
-        double setY(double y) {
+        void setY(double y) {
             m_d_y = y;
         }
         double distance_to_origin();

@@ -114,18 +114,18 @@ class AUV {
       this->speed = speed;
       this->angular_speed = angular_speed;
     }
-    void step(double dt) {
+    void step(const double &dt) {
       heading+=(angular_speed*dt);
       position.setX(position.x() + (speed[0]*dt));
       position.setY(position.y() + (speed[1]*dt));
       depth+=(speed[2]*dt);
     }
-    void apply_acceleration(double acceleration[3], double dt) {
+    void apply_acceleration(const array<double ,3> &acceleration, const double &dt) {
       speed[0]+=(acceleration[0]*dt);
       speed[1]+=(acceleration[1]*dt);
       speed[2]+=(acceleration[2]*dt);
     }
-    void apply_angular_acceleration(double angular_acceleration, double dt) {
+    void apply_angular_acceleration(const double &angular_acceleration, const double &dt) {
       angular_speed+=(angular_acceleration*dt);
     }
     Point getPosition() {
@@ -220,7 +220,7 @@ int main()
   cout << "y: " << auv.getPosition().y() << "\n";
   cout << "z: " << auv.getDepth() << "\n";
 
-  double accel[3] = {2.5, 3.7, -1.3};
+  array<double,3> accel = {2.5, 3.7, -1.3};
   auv.apply_acceleration(accel, 0.3);
   cout << "foward speed: " << auv.getSpeed()[0] << "\n";
   cout << "lat speed: " << auv.getSpeed()[1] << "\n";
